@@ -50,15 +50,6 @@ public class MainActivity extends AppCompatActivity {
         TextView thursdayView = findViewById(R.id.thursday_view);
         TextView fridayView = findViewById(R.id.friday_view);
 
-//        Spinner mondayStartHourSpinner = findViewById(R.id.monday_start_hour);
-//        String[] hours = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" };
-////create an adapter to describe how the items are displayed, adapters are used in several places in android.
-////There are multiple variations of this, but this is the basic variant.
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, hours);
-////set the spinners adapter to the previously created one.
-//        mondayStartHourSpinner.setAdapter(adapter);
-        // TODO starting with this one...
-
         Schedule schedule = new Schedule();
 
 
