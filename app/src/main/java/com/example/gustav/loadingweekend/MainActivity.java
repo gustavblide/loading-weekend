@@ -9,12 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.joda.time.LocalTime;
+
+import static android.view.View.VISIBLE;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
                 fm.beginTransaction().add(R.id.progress_bar_layout,scheduleFragment).commit();
             }
         });
+
+        ImageButton updateScheduleButton = findViewById(R.id.update_schedule_button);
+        updateScheduleButton.setVisibility(VISIBLE);
 
         LinearLayout weekdays = findViewById(R.id.weekdays);
         TextView mondayView = findViewById(R.id.monday_view);
