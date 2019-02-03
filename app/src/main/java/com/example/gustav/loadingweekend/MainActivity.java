@@ -7,9 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.joda.time.LocalTime;
 
@@ -18,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     LocalTime local8AM = new LocalTime(8,00);
     LocalTime local5PM = new LocalTime(17,00);
-
-    Schedule schedule = new Schedule(local8AM,local5PM,local8AM,local5PM,local8AM,local5PM,local8AM,local5PM,local8AM,local5PM);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,26 +43,68 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        View mondayView = findViewById(R.id.monday_view);
-        View tuesdayView = findViewById(R.id.tuesday_view);
-        View wednesdayView = findViewById(R.id.wednesday_view);
-        View thursdayView = findViewById(R.id.thursday_view);
-        View fridayView = findViewById(R.id.friday_view);
+        LinearLayout weekdays = findViewById(R.id.weekdays);
+        TextView mondayView = findViewById(R.id.monday_view);
+        TextView tuesdayView = findViewById(R.id.tuesday_view);
+        TextView wednesdayView = findViewById(R.id.wednesday_view);
+        TextView thursdayView = findViewById(R.id.thursday_view);
+        TextView fridayView = findViewById(R.id.friday_view);
+
+//        Spinner mondayStartHourSpinner = findViewById(R.id.monday_start_hour);
+//        String[] hours = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" };
+////create an adapter to describe how the items are displayed, adapters are used in several places in android.
+////There are multiple variations of this, but this is the basic variant.
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, hours);
+////set the spinners adapter to the previously created one.
+//        mondayStartHourSpinner.setAdapter(adapter);
+        // TODO starting with this one...
+
+        Schedule schedule = new Schedule();
 
 
-       /*  mondayView.setLayoutParams(new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.MATCH_PARENT, schedule.monday.getDayLength()));
+        Workday monday = schedule.getMonday();
+        monday.setDayStartTime(local8AM);
+        monday.setDayEndTime(local5PM);
+
+        Workday tuesday = schedule.getTuesday();
+        tuesday.setDayStartTime(local8AM);
+        tuesday.setDayEndTime(local5PM);
+
+        Workday wednesday = schedule.getWednesday();
+        wednesday.setDayStartTime(local8AM);
+        wednesday.setDayEndTime(local5PM);
+
+        Workday thursday = schedule.getThursday();
+        thursday.setDayStartTime(local8AM);
+        thursday.setDayEndTime(local5PM);
+
+        Workday friday = schedule.getFriday();
+        friday.setDayStartTime(local8AM);
+        friday.setDayEndTime(local5PM);
+
+        float lengthOfWorkWeek = schedule.getLengthOfWorkWeek();
+        float weekdaysWeightSum = 5;
+        weekdays.setWeightSum(weekdaysWeightSum);
+
+        float mondayWiewWeight = weekdaysWeightSum / ( lengthOfWorkWeek / monday.getDayLength());
+        float tuesdayWiewWeight = weekdaysWeightSum / ( lengthOfWorkWeek / tuesday.getDayLength());
+        float wednesdayWiewWeight = weekdaysWeightSum / ( lengthOfWorkWeek / wednesday.getDayLength());
+        float thursdayWiewWeight = weekdaysWeightSum / ( lengthOfWorkWeek / thursday.getDayLength());
+        float fridayWiewWeight = weekdaysWeightSum / ( lengthOfWorkWeek / friday.getDayLength());
+
+
+        mondayView.setLayoutParams(new LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.MATCH_PARENT, mondayWiewWeight));
         tuesdayView.setLayoutParams(new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.MATCH_PARENT, schedule.tuesday.getDayLength()));
+                0, LinearLayout.LayoutParams.MATCH_PARENT, tuesdayWiewWeight));
         wednesdayView.setLayoutParams(new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.MATCH_PARENT, schedule.wednesday.getDayLength()));
+                0, LinearLayout.LayoutParams.MATCH_PARENT, wednesdayWiewWeight));
         thursdayView.setLayoutParams(new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.MATCH_PARENT, schedule.thursday.getDayLength()));
+                0, LinearLayout.LayoutParams.MATCH_PARENT, thursdayWiewWeight));
         fridayView.setLayoutParams(new LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.MATCH_PARENT, schedule.friday.getDayLength()));
+                0, LinearLayout.LayoutParams.MATCH_PARENT, fridayWiewWeight));
 
-        int progress = (int) Schedule.getProgress(schedule);
-        progressBar.setProgress(progress);*/
-
+        int progress = (int) schedule.getProgress();
+        progressBar.setProgress(progress);
     }
 }

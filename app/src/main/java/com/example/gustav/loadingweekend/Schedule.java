@@ -5,28 +5,43 @@ import org.joda.time.LocalTime;
 
 public class Schedule {
 
-    DateTime currentTime = new DateTime();
-    int currentWeekday = currentTime.getDayOfWeek();
-    static LocalTime moStart, moEnd, tuStart, tuEnd, weStart, weEnd, thStart, thEnd, frStart, frEnd;
+    Workday monday = new Workday(Workday.Weekday.MONDAY);
+    Workday tuesday = new Workday(Workday.Weekday.TUESDAY);
+    Workday wednesday = new Workday(Workday.Weekday.WEDNESDAY);
+    Workday thursday = new Workday(Workday.Weekday.THURSDAY);
+    Workday friday = new Workday(Workday.Weekday.FRIDAY);
 
-    // creating a Schedule with start and end times for every day as parameters
-    public Schedule(LocalTime moStart, LocalTime moEnd, LocalTime tuStart, LocalTime tuEnd, LocalTime weStart, LocalTime weEnd,
-                    LocalTime thStart, LocalTime thEnd, LocalTime frStart, LocalTime frEnd) {
+    public Workday getMonday() {
+        return this.monday;
+    }
 
-        this.moStart = moStart;
-        this.moEnd = moEnd;
-        this.tuStart = tuStart;
-        this.tuEnd = tuEnd;
-        this.weStart = weStart;
-        this.weEnd = weEnd;
-        this.thStart = thStart;
-        this.thEnd = thEnd;
-        this.frStart = frStart;
-        this.frEnd = frEnd;
+    public Workday getTuesday() {
+        return this.tuesday;
+    }
+
+    public Workday getWednesday() {
+        return this.wednesday;
+    }
+
+    public Workday getThursday() {
+        return this.thursday;
+    }
+
+    public Workday getFriday() {
+        return this.friday;
+    }
+
+    public int getLengthOfWorkWeek () {
+
+        return  getMonday().getDayLength() +
+                getTuesday().getDayLength() +
+                getWednesday().getDayLength() +
+                getThursday().getDayLength() +
+                getFriday().getDayLength();
     }
 
     // method to call when MainMethod wants to know how much to fill the progress bar
-    public static long getProgress(Schedule schedule) {
+    public long getProgress() {
         int progressBarMax = 1000;
         DateTime currentTime = new DateTime();
         int currentWeekday = currentTime.getDayOfWeek();
@@ -39,45 +54,47 @@ public class Schedule {
         LocalTime todayEndTime;
         switch (currentWeekday) {
             case 1: {
-                todayStartTime = moStart;
-                todayEndTime = moEnd;
+                todayStartTime = monday.getDayStartTime();
+                todayEndTime = monday.getDayEndTime();
             }
             case 2: {
-                todayStartTime = tuStart;
-                todayEndTime = tuEnd;
+                todayStartTime = tuesday.getDayStartTime();
+                todayEndTime = tuesday.getDayEndTime();
             }
             case 3: {
-                todayStartTime = weStart;
-                todayEndTime = weEnd;
+                todayStartTime = wednesday.getDayStartTime();
+                todayEndTime = wednesday.getDayEndTime();
             }
             case 4: {
-                todayStartTime = thStart;
-                todayEndTime = thEnd;
+                todayStartTime = thursday.getDayStartTime();
+                todayEndTime = thursday.getDayEndTime();
             }
             case 5: {
-                todayStartTime = frStart;
-                todayEndTime = frEnd;
+                todayStartTime = friday.getDayStartTime();
+                todayEndTime = friday.getDayEndTime();
             }
             default: {
                 todayStartTime = new LocalTime(8, 00);
                 todayEndTime = new LocalTime(17, 00);
             }
-            if (currentTime.getMillisOfDay() < todayStartTime.getMillisOfDay()) {
-                minutesWorkedToday = 0;
-            } else if (currentTime.getMillisOfDay() > todayEndTime.getMillisOfDay()) {
-                minutesWorkedToday = (todayEndTime.getMillisOfDay()-todayStartTime.getMillisOfDay())/60000;
-            } else {
-                minutesWorkedToday = (currentTime.getMillisOfDay()-todayStartTime.getMillisOfDay())/60000;
-            }
-            double minutesWorkedThisWeek = (9 * 60 * passedWorkdays) + minutesWorkedToday;
-            double minutesInAWorkweek = 9 * 60 * 5;
-            double partOfWeekWorked = minutesWorkedThisWeek / minutesInAWorkweek;
-            double progress = progressBarMax * partOfWeekWorked;
-            return Math.round(progress);
         }
 
-        private int getMondayLength() {
-            return (this.moEnd.getMillisOfDay()-moStart.getMillisOfDay())/60000;
+        if (currentTime.getMillisOfDay() < todayStartTime.getMillisOfDay()) {
+            minutesWorkedToday = 0;
+        } else if (currentTime.getMillisOfDay() > todayEndTime.getMillisOfDay()) {
+            minutesWorkedToday = (todayEndTime.getMillisOfDay()-todayStartTime.getMillisOfDay())/60000;
+        } else {
+            minutesWorkedToday = (currentTime.getMillisOfDay()-todayStartTime.getMillisOfDay())/60000;
         }
+        double minutesWorkedThisWeek = (9 * 60 * passedWorkdays) + minutesWorkedToday;
+        double minutesInAWorkweek = 9 * 60 * 5;
+        double partOfWeekWorked = minutesWorkedThisWeek / minutesInAWorkweek;
+        double progress = progressBarMax * partOfWeekWorked;
+        return Math.round(progress);
+        }
+
+//        private int getMondayLength() {
+//            return (this.moEnd.getMillisOfDay()-moStart.getMillisOfDay())/60000;
+//        }
     }
-}
+
