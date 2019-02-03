@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/progress_bar_layout"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:weightSum="4"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:text="Laddar helgen..."
+        android:textSize="25sp"
+        android:textAlignment="center"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:alpha="0.5"
+        android:max="1000"/>
+
+        <LinearLayout
+            android:id="@+id/weekdays"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="5"
+            android:src="@drawable/gray_rectangle">
+
+            <TextView
+                android:id="@+id/monday_view"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Måndag"
+                android:textAlignment="center"/>
+            <ImageView
+                android:id="@+id/mo_tu_border"
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/gray_rectangle" />
+            <TextView
+                android:id="@+id/tuesday_view"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Tisdag"
+                android:textAlignment="center"/>
+            <ImageView
+                android:id="@+id/tu_we_border"
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/gray_rectangle" />
+            <TextView
+                android:id="@+id/wednesday_view"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Onsdag"
+                android:textAlignment="center"/>
+            <ImageView
+                android:id="@+id/we_th_border"
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/gray_rectangle" />
+            <TextView
+                android:id="@+id/thursday_view"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Torsdag"
+                android:textAlignment="center"/>
+            <ImageView
+                android:id="@+id/th_fr_border"
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/gray_rectangle" />
+            <TextView
+                android:id="@+id/friday_view"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Fredag"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:orientation="vertical"
+    android:weightSum="4"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp">
+
+        <Button
+            android:id="@+id/schedule_button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:text="Ändra schema"/>
+    </RelativeLayout>
+
+</LinearLayout>
+
